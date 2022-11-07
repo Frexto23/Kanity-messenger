@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %} Вход {% endblock %}
+
+{% block stylesheets %} 
+  <link rel="stylesheet" href="{% static 'css/style.css' %}"> 
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+      {% if form.errors %}
+      <p>Your username and password didn't match. Please try again.</p>
+    {% endif %}
+
+    {% if next %}
+      {% if user.is_authenticated %}
+        <p>Your account doesn't have access to this page. To proceed,
+        please login with an account that has access.</p>
+      {% else %}
+        <p>Please login to see this page.</p>
+      {% endif %}
+    {% endif %}
+
+    <form method="post" action="{% url 'mesdb:login' %}">
+
+    {% csrf_token %}
+
+    <div class="links">
+      <a class="title" href="{% url 'mesdb:reg' %}">Регестрация</a>
+      <div class="title">Вход</div>
+    </div>
+
+    <input type="input" class="form-control form-control-login" name="username" id="inputEmail" placeholder="Имя пользователя" required >
+
+    <input type="password" class="form-control form-control-password" name="password" id="inputPass" placeholder="Пароль" required>
+
+    <button class="form-control-button" type="submit" style="opacity: 1 !important;">Войти</button>
+    <input type="hidden" name="next" value="{{ next }}" />
+
+    <a class="forgot-pass" href="/password_reset">Забыли пароль?</a>
+    </form>
+
+  </div>
+
+{% endblock %}

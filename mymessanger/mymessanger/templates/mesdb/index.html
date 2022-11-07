@@ -1,0 +1,209 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Главная Kaniti{% endblock %}
+
+{% block stylesheets%} 
+	<link rel="stylesheet" href="{% static 'css/index.css' %}">
+{% endblock %}
+
+{% block content %}
+
+	<div class="sidebar">
+
+	</div>
+	<div class="main">
+		
+		<div class="header">
+			<h1 class="time">17:00</h1>
+			
+			<div class="profile">
+				<div class="homework" day-Link="{% url 'mesdb:change_day' hw_table.day_number %}" day-number="{{hw_table.day_number}}">
+					табличка
+
+					<div id="HW-Modal">
+						<p class="model-title">Домашнее задание / расписание</p>
+						<button class="edit-hw__button" active="false">
+							<img src="{% static 'img/edit.png' %}" class="edit-hw__img">
+						</button>
+						<a href="#" class="last-day">←</a>
+						<table class="homework-table">
+							<tr>
+								<td class="class c-title">Предмет</td>
+								<td class="task t-title">Задание</td>
+								<td class="description d-title">Описание урока</td>
+							</tr>
+							<tr>
+								<td class="class c1">{{hw_table.table_chat.class_1 }}</td>
+								<td class="task t1">{{hw_table.table_chat.task_1}}</td>
+								<td class="description d1">{{hw_table.table_chat.description_1}}</td>
+							</tr>
+							<tr>
+								<td class="class c2">{{hw_table.table_chat.class_2 }}</td>
+								<td class="task t2">{{hw_table.table_chat.task_2}}</td>
+								<td class="description d2">{{hw_table.table_chat.description_2}}</td>
+							</tr>
+							<tr>
+								<td class="class c3">{{hw_table.table_chat.class_3 }}</td>
+								<td class="task t3">{{hw_table.table_chat.task_3}}</td>
+								<td class="description d3">{{hw_table.table_chat.description_3}}</td>
+							</tr>
+							<tr>
+								<td class="class c4">{{hw_table.table_chat.class_4 }}</td>
+								<td class="task t4">{{hw_table.table_chat.task_4}}</td>
+								<td class="description d4">{{hw_table.table_chat.description_4}}</td>
+							</tr>
+							<tr>
+								<td class="class c5">{{hw_table.table_chat.class_5 }}</td>
+								<td class="task t5">{{hw_table.table_chat.task_5}}</td>
+								<td class="description d5">{{hw_table.table_chat.description_5}}</td>
+							</tr>
+							<tr>
+								<td class="class c6">{{hw_table.table_chat.class_6 }}</td>
+								<td class="task t6">{{hw_table.table_chat.task_6}}</td>
+								<td class="description d6">{{hw_table.table_chat.description_6}}</td>
+							</tr>
+							<tr>
+								<td class="class c7">{{hw_table.table_chat.class_7 }}</td>
+								<td class="task t7">{{hw_table.table_chat.task_7}}</td>
+								<td class="description d7">{{hw_table.table_chat.description_7}}</td>
+							</tr>
+							<tr>
+								<td class="class c8">{{hw_table.table_chat.class_8 }}</td>
+								<td class="task t8">{{hw_table.table_chat.task_8}}</td>
+								<td class="description d8">{{hw_table.table_chat.description_8}}</td>
+							</tr>
+						<a href="#" class="next-day">→</a>
+						</table>
+						<div class="end-edit">
+							<button class="agree" link-to-send-hw="{% url 'mesdb:edit_hw'%}">Сохранить</button>
+							<button class="cansel">Отменить изменения</button>
+						</div>
+						<span id="Modal__close" class="close">ₓ</span>
+					</div>
+
+					<div id="HW-Overlay"></div>
+
+				</div>
+				{{me.user_login}}
+				<img src="{{ me.user_avatar.url }}" class="avatar-img profile-avatar__img">
+			</div>
+		</div>
+		<div class="chat-list">
+			<div class="chat-list__top">
+				<div class="menu" onclick="myFunction(this)">
+			  		<div class="bar1"></div>
+			  		<div class="bar2"></div>
+			  		<div class="bar3"></div>
+			  		<div class="link-bar">
+			  			<a href="#" class="l">Настройки</a>
+						<a class="profile" href="#" class="l">Профиль</a>
+						<a href="#" class="l">Непрочитанные</a>
+			  		</div>
+			  		
+				</div>
+				
+				<input data=the_user_chats placeholder="Поиск" type="text" class="search">
+			</div>
+		    <div class="chats">
+				{% for i in data %}
+					<a base="{% url 'mesdb:index-chat' i.id %}" class="item_chat">
+						<img src="{{ i.avatar.url }}" class="avatar-img">
+						<div class="link-inf">
+							<div class="link-name"><b>{{ i.name }}</b></div>
+							<div class="link-last__message">{{ i.last_message }}</div>
+						</div>
+						<div class="link-inf__end">
+							<div class="link-last__time">{{ i.last_message_time }}</div>
+							<div class="link-number__unread">
+								<div class="unread-plus">{{ i.last_message_unread }}</div>
+							</div>
+						</div>
+					</a>
+				{% endfor %}
+			</div>
+		</div>
+		<div class="main-chat">
+			<div class="chating-header">
+				<div class="chat-name">Не выбран</div>
+			</div>
+			<div class="chating">
+		      	<div class="messages">
+					<div class="message-op">
+						<div class="empty"></div><br>
+						<div class="message op">Выберите чат для начала диалога.</div><br>
+						<div class="empty"></div>
+					</div>
+					<div class="time-breaker">
+						<div class="time_breaker">12 мая 2021 года</div>
+					</div>
+					<div class="message-my">
+						<div class="empty"></div><br>
+						<div class="empty"></div><br>
+					</div>
+		      	</div>
+			</div>
+			<div class="sendler">
+
+			  	<div class="send-input">
+			  		
+			  		<input type="text" class="send" placeholder="Введите сообщение." id="message-text">
+
+			  	</div>
+
+			  	<button class="send-button" name="sendbtn" data-ajax-target="{% url 'mesdb:sendmessage' %}" token="{{ csrf_token }}" link-to-get="{% url 'mesdb:getmessage' %}" user="{{chat.id}}">
+			  		<img src="{% static 'img/send-img.svg' %}" alt="" class="send-button__img">
+			  	</button>
+
+			</div>
+		</div>
+
+	</div>
+	<div class="right-block"></div>
+	<div class="settings-sidebar">
+		<div class="avatar" style="
+			background: url('{{me.user_avatar.url}}');
+			background-size: cover;
+			background-position: center;
+		">
+		</div>
+		<div class="nick">{{me.user_login}}</div>
+		<div class="closer">×</div>
+	</div>
+	<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+	<script src="{% static 'js/index1.js' %}"></script>
+
+	<script>
+		$(document).ready(function() {
+			$( ".search" ).change(function() {
+				var searching = $(this).val()
+			    $(".chats").empty();
+				
+			    {% for i in data  %}
+			    	// var j = "{{i.name|slice:forloop.counter|last}}"
+			    	if ("{{i.name}}".includes(searching)){
+			    		var myItemChat = 
+				    		$('<div class="item_chat" base="{% url 'mesdb:index-chat' i.id %}">' +
+						   		'<img src="{{ i.avatar.url }}" class="avatar-img">' +
+								'<div class="link-inf">' +
+									'<div class="link-name"><b>{{ i.name }}</b></div>' +
+									'<div class="link-last__message">{{ i.last_message }}</div>' +
+								'</div>' +
+								'<div class="link-inf__end">' +
+									'<div class="link-last__time">{{ i.last_message_time }}</div>' +
+									'<div class="link-number__unread">' +
+										'<div class="unread-plus">{{ i.last_message_unread }}</div>' + 
+									'</div>' +
+								'</div>' +
+							'</div>')
+							
+		                $('.chats').append(myItemChat)
+			    	}	
+				{% endfor %}
+
+			});
+		})
+	</script>
+
+{% endblock %}

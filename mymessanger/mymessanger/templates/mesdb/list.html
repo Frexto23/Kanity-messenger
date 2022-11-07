@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Все Чаты{% endblock %}
+
+{% block stylesheets%} 
+	<link rel="stylesheet" href="{% static 'css/main.css' %}">
+{% endblock %}
+
+{% block content %}
+
+	<div class="container">
+	  
+	  <div class="header">
+	      <a class="ret" href="{% url 'mesdb:correspondence' %}">
+	      	<img class="ret-img" src="{% static 'img/ret.svg' %}" alt="">
+	      </a>
+	  </div>
+	    
+
+
+	    <div class="chating">
+	      <div class="chat-name">{{opname}}</div>
+
+	      <div class="messages">
+			<div class="message-op">
+				<div class="empty"></div> <br />
+				{% for m in messages %}
+					{% if m.message_author_id == me %}
+						<div class="empty"></div> <br />
+					{% else %}
+						<div class="message">{{m.message_text}}</div> <br />
+					{% endif %}
+				{% endfor %}
+			</div>
+
+			<div class="message-my">
+				<div class="empty"></div> <br />
+				{% for m in messages %}
+					{% if m.message_author_id == me %}
+						<div class="message my">{{m.message_text}}</div> <br />
+					{% else %}
+						<div class="empty"></div> <br />
+					{% endif %}
+				{% endfor %}
+			</div>
+
+	      </div>
+
+	    </div>
+
+		  <div class="sendler">
+
+		  	<div class="send-input">
+		  		
+		  		<input type="text" class="send" placeholder="Введите сообщение." id="message-text">
+
+		  	</div>
+
+		  	<button class="send-button" name="sendbtn" user={{chat.id}} data-ajax-target="{% url 'mesdb:sendmessage' %}" token="{{ csrf_token }}" link-to-get="{% url 'mesdb:getmessage' %}">
+		  		<img src="{% static 'img/send-img.svg' %}" alt="" class="send-button__img">
+		  	</button>
+
+		  </div>
+	</div>
+	<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+	<script src="{% static 'js/main.js' %}"></script>
+{% endblock %}
