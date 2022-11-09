@@ -6,6 +6,7 @@
 
 {% block stylesheets%} 
 	<link rel="stylesheet" href="{% static 'css/index.css' %}">
+	<link rel="stylesheet" href="{% static 'css/adaptive.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -92,7 +93,7 @@
 		</div>
 		<div class="chat-list">
 			<div class="chat-list__top">
-				<div class="menu" onclick="myFunction(this)">
+				<div class="menu">
 			  		<div class="bar1"></div>
 			  		<div class="bar2"></div>
 			  		<div class="bar3"></div>
@@ -126,6 +127,9 @@
 		</div>
 		<div class="main-chat">
 			<div class="chating-header">
+				<div class="back-button">
+					<img class="back-img" src="{% static 'img/undo.png' %}">
+				</div>
 				<div class="chat-name">Не выбран</div>
 			</div>
 			<div class="chating">
@@ -181,7 +185,6 @@
 			    $(".chats").empty();
 				
 			    {% for i in data  %}
-			    	// var j = "{{i.name|slice:forloop.counter|last}}"
 			    	if ("{{i.name}}".includes(searching)){
 			    		var myItemChat = 
 				    		$('<div class="item_chat" base="{% url 'mesdb:index-chat' i.id %}">' +

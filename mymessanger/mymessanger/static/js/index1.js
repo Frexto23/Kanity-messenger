@@ -1,12 +1,15 @@
 $(document).ready(function() {
+
+	const mediaQuery = window.matchMedia('(orientation: portrait)')
+
 	setInterval( function() {
-		var date = new Date();
-		var hours = date.getHours();
-	    var minutes = date.getMinutes();
-	    var seconds = date.getSeconds();
-			if (hours < 10) hours = "0" + hours;
-			if (minutes < 10) minutes = "0" + minutes;
-		$(".time").text(hours + ":" + minutes);
+		var date = new Date()
+		var hours = date.getHours()
+	    var minutes = date.getMinutes()
+	    var seconds = date.getSeconds()
+			if (hours < 10) hours = "0" + hours
+			if (minutes < 10) minutes = "0" + minutes
+		$(".time").text(hours + ":" + minutes)
 		}, 1000)
 
 	$(".edit-hw__button").click(
@@ -273,7 +276,12 @@ $(document).ready(function() {
         		myNewMessage.append(myNewMessage_time)
                 $('.message-my').append(myNewMessage)
                 $('.message-my').append("<br />")
-                $('.message-op').append("<div class='empty'></div>")
+                emptyHeight = $($(".op").slice(-1)).height() + 20
+                var empty = $('<div>', {
+                	'class': 'empty',
+                	'style': "height: " + emptyHeight + "px"
+                })
+                $('.message-op').append(empty)
                 $('.message-op').append("<br />")
                 $('#message-text').val('')
                 $('.chating').scrollTop($('.messages').height())
@@ -323,6 +331,12 @@ $(document).ready(function() {
 							opNewMessage.append(opNewMessage_time)
                             $('.message-op').append(opNewMessage)
                             $('.message-op').append("<br />")
+                            emptyHeight = $($(".my").slice(-1)).height() + 20
+			                var empty = $('<div>', {
+			                	'class': 'empty',
+			                	'style': "height: " + emptyHeight + "px"
+			                })
+			                $('.message-op').append(empty)
                             $('.message-my').append("<div class='empty'></div>")
                             $('.message-my').append("<br />")
                         }
@@ -336,22 +350,12 @@ $(document).ready(function() {
     }
     setInterval(gettingData, 10000);
 	
-    $(".link-bar").on('click', ".profile", function(){
-    	$(".settings-sidebar").css({
-    		"width": "20%",
-    		"display": "block"
-    	})
-    })
-
     $(".menu").click(function(){
-    	$(this).toggleClass("change")
+    	$(".settings-sidebar").css("display", "block")
     })
 
     $(".settings-sidebar").on('click', ".closer", function(){
-    	$(".settings-sidebar").css({
-    		"width": "0",
-    		"display": "none"
-    	})
+    	$(".settings-sidebar").css("display", "none")
     })
 
     $(".chats").on('click', ".item_chat", function(){
@@ -360,6 +364,7 @@ $(document).ready(function() {
     $(".chats").on('click', ".item_chat finded", function(){
     	openChat($(this).attr('base'))
     })
+
     function openChat (link){
 
     	$.ajax({
@@ -387,20 +392,22 @@ $(document).ready(function() {
                 		last = [-2,-2,-2,-2,-2]
                 	}
          			
-            		// if (last[0] != messageTime[0] && messageTime[0] != nowTime[0]){  день и год собщений
-            		// 	var breakerTime =
-                 //    		$('<div>', {
-                 //        		'class': 'time_breaker',
-                 //        		text: messageTime[2].toString() + " " + messageTime[1].toString() + " " +  messageTime[0].toString() + " года"    
-                 //    		})
-                 //    	var n = $(".message-my").length
-                 //    	console.log(n)
-                 //    	for (var i=0;i<n;i++){
-                 //    		$('.time-breaker').append("<div class='empty'></div>")
-                 //        	$('.time-breaker').append("<br />")
-                 //    	}
-                 //    	$('.time-breaker').append(breakerTime)
-            		// }
+            		if (last[0] != messageTime[0] && messageTime[0] != nowTime[0]){  
+            			var breakerTime =
+                    		$('<div>', {
+                        		'class': 'time_breaker',
+                        		text: messageTime[2].toString() + " " + messageTime[1].toString() + " " +  messageTime[0].toString() + " года"    
+                    		})
+                    	var n = $(".message-my").children().length / 2
+                    	for (var j=0;j<n;j++){
+                    		$('.time-breaker').append("<div class='empty'></div>")
+                        	$('.time-breaker').append("<br />")
+                    	}
+                    	$('.time-breaker').append(breakerTime)
+                    	
+                    	$(".message-my").append("<div class='howitcan'></div>")
+                    	$(".message-my").append("<br />")
+            		}
 
             		let message_Minutes = mt.getMinutes()			// добавление нуля перед значением когда было отправленно сообщение
             		if (mt.getMinutes() < 10) {
@@ -460,5 +467,25 @@ $(document).ready(function() {
                 alert("Could not send URL to Django. Error: " + xhr.status + ": " + xhr.responseText)
             }
         })
+
+		if(mediaQuery.matches){
+			$(".chat-list").css("display", "none")
+			$(".main-chat").css(
+				{
+					"display": "block",
+					"width": "100%",
+					"height": "100%",
+					"margin-left": "0",
+				}
+			)
+			$(".chating").css("height", "86%")
+			$(".back-button").css("display", "block")
+		}
+
     }
+    $(".back-button").click(function (){
+    	$(".chat-list").css("display", "block")
+		$(".main-chat").css("display", "none")
+		$(".back-button").css("display", "none")
+    })
 })

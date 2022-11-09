@@ -13,6 +13,7 @@ body{
 	display: none;
 	background: #fff;
 	height: 100%;
+	width: 30%;
 }
 .closer {
 	width: 30px;
@@ -304,6 +305,19 @@ textarea {
 	font-family: 'Source Sans Pro', sans-serif;
   font-size: 19px;
 }
+.back-button {
+	position: absolute;
+	font-size: 20px;
+	left: 10px;
+	display: none;
+}
+.back-button:active {
+	border: 2px solid rgba(0,0,0,0);
+}
+.back-img {
+	max-width: 40px;
+	max-height: 40px;
+}
 .menu {
 	display: inline-block;
 	margin: 0 15px;
@@ -422,11 +436,15 @@ a.l {
 	font-size: 16px;
 }
 .link-inf {
-	width: 100%;
 	text-align: left;
+	width: 100%;
 }
 .link-last__message {
 	color: #7c848d;
+	text-overflow: ellipsis;
+	max-width: 70%;
+	white-space: nowrap;
+	overflow: hidden;
 }
 .link-last__time {
 	white-space: nowrap;
@@ -471,6 +489,7 @@ a.l {
 	max-width: 80%;
 	word-wrap: break-word;
 	font-size: 19px;
+	text-align: left;
 }
 .my {
 	background-color: #a8edbb;
@@ -482,7 +501,8 @@ a.l {
 .message-time {
 	font-size: 14px;
 	color: grey;
-	margin-left: 10px;
+	display: block;
+	text-align: right;
 }
 .empty {
 	padding: 10px;
