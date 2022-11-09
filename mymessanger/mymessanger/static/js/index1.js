@@ -40,9 +40,6 @@ $(document).ready(function() {
 			link     = $(".agree").attr("link-to-send-hw") 
 			homework = [lessons, tasks, descriptions]
 
-			console.log($(".class"))
-			console.log("asfafaf")
-
 			$.ajax({
             url: link,
             type: "POST",
@@ -276,7 +273,7 @@ $(document).ready(function() {
         		myNewMessage.append(myNewMessage_time)
                 $('.message-my').append(myNewMessage)
                 $('.message-my').append("<br />")
-                emptyHeight = $($(".op").slice(-1)).height() + 20
+                emptyHeight = $($(".my").slice(-1)).height() + 20
                 var empty = $('<div>', {
                 	'class': 'empty',
                 	'style': "height: " + emptyHeight + "px"
@@ -331,13 +328,12 @@ $(document).ready(function() {
 							opNewMessage.append(opNewMessage_time)
                             $('.message-op').append(opNewMessage)
                             $('.message-op').append("<br />")
-                            emptyHeight = $($(".my").slice(-1)).height() + 20
+                            emptyHeight = $($(".op").slice(-1)).height() + 20
 			                var empty = $('<div>', {
 			                	'class': 'empty',
 			                	'style': "height: " + emptyHeight + "px"
 			                })
-			                $('.message-op').append(empty)
-                            $('.message-my').append("<div class='empty'></div>")
+			                $('.message-my').append(empty)
                             $('.message-my').append("<br />")
                         }
                     }
@@ -351,7 +347,13 @@ $(document).ready(function() {
     setInterval(gettingData, 10000);
 	
     $(".menu").click(function(){
-    	$(".settings-sidebar").css("display", "block")
+    	$(".settings-sidebar").css("display", "flex")
+    	var settingsSidebarWidth = $(".settings-sidebar").width()
+    	if (settingsSidebarWidth > $(window).height() / 2){
+    		settingsSidebarWidth = $(window).height() / 2
+    		$(".settings-sidebar").width(settingsSidebarWidth)
+    	}
+    	$(".avatar").height(settingsSidebarWidth)
     })
 
     $(".settings-sidebar").on('click', ".closer", function(){
@@ -398,15 +400,24 @@ $(document).ready(function() {
                         		'class': 'time_breaker',
                         		text: messageTime[2].toString() + " " + messageTime[1].toString() + " " +  messageTime[0].toString() + " года"    
                     		})
-                    	var n = $(".message-my").children().length / 2
-                    	for (var j=0;j<n;j++){
-                    		$('.time-breaker').append("<div class='empty'></div>")
-                        	$('.time-breaker').append("<br />")
-                    	}
+                    	emptyHeight = $(".message-my").height() + 30
+		                var empty = $('<div>', {
+		                	'class': 'empty',
+		                	'style': "height: " + emptyHeight + "px"
+		                })
+                		$('.time-breaker').append(empty)
                     	$('.time-breaker').append(breakerTime)
-                    	
-                    	$(".message-my").append("<div class='howitcan'></div>")
-                    	$(".message-my").append("<br />")
+                    	$('.time-breaker').append("<br />")
+                    	empty = $('<div>', {
+		                	'class': 'empty-breaker',
+		                	'style': "height: " + 70 + "px"
+		                })
+		                $('.message-op').append(empty)
+		                empty = $('<div>', {
+		                	'class': 'empty-breaker',
+		                	'style': "height: " + 70 + "px"
+		                })
+                    	$('.message-my').append(empty)
             		}
 
             		let message_Minutes = mt.getMinutes()			// добавление нуля перед значением когда было отправленно сообщение
@@ -433,7 +444,12 @@ $(document).ready(function() {
                 		myNewMessage.append(myNewMessage_time)
                 		$('.message-my').append(myNewMessage)
                 		$('.message-my').append("<br />")
-                        $('.message-op').append("<div class='empty'></div>")
+                        emptyHeight = $($(".my").slice(-1)).height() + 20
+		                var empty = $('<div>', {
+		                	'class': 'empty',
+		                	'style': "height: " + emptyHeight + "px"
+		                })
+		                $('.message-op').append(empty)
                         $('.message-op').append("<br />")
                 	}
                 	else{
@@ -455,7 +471,12 @@ $(document).ready(function() {
 						opNewMessage.append(opNewMessage_time)
                         $('.message-op').append(opNewMessage)
                         $('.message-op').append("<br />")
-                        $('.message-my').append("<div class='empty'></div>")
+                        emptyHeight = $($(".op").slice(-1)).height() + 20
+		                var empty = $('<div>', {
+		                	'class': 'empty',
+		                	'style': "height: " + emptyHeight + "px"
+		                })
+		                $('.message-my').append(empty)
                         $('.message-my').append("<br />")
                 	}
                 }

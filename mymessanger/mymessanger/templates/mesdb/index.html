@@ -168,11 +168,32 @@
 	<div class="settings-sidebar">
 		<div class="avatar" style="
 			background: url('{{me.user_avatar.url}}');
-			background-size: cover;
+			background-color: grey;
+			background-size: auto 100%;
+			background-repeat: no-repeat;
 			background-position: center;
 		">
 		</div>
-		<div class="nick">{{me.user_login}}</div>
+		<div class="fields">
+			<div class="field not-last">
+				<div class="field-date nick">{{me.user_login}}</div>
+				<div class="field-name">Никнейм</div>
+			</div>
+			<div class="field">
+				<div class="field-date email">f.maksim.2005@gmail.com</div>
+				<div class="field-name">Email</div>
+			</div>
+			<button class="edit-profile__button" active="false">
+				<img src="{% static 'img/edit_black_and_white.png' %}" class="edit-profile__img">
+			</button>
+		</div>
+		<div class="transition"></div>
+		<div class="additional-info">
+			<h2>Разработчик</h2>
+			<div class="author-of-project">
+				Фомин Максим Александрович
+			</div>
+		</div>
 		<div class="closer">×</div>
 	</div>
 	<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>

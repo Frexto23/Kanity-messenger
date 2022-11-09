@@ -70,9 +70,8 @@
   }
 }
 @media (orientation: landscape) and (max-width: 1000px) {
-  
   .link-inf {
     width: 70%;
   }
-  
 }
+

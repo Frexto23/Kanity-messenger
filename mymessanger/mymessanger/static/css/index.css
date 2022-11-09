@@ -13,9 +13,89 @@ body{
 	display: none;
 	background: #fff;
 	height: 100%;
-	width: 30%;
+	width: 40%;
+	flex-direction: column;
+}
+.fields {
+	z-index: 3;
+	position: relative;
+	box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+.field {
+	padding: 10px;
+	font-size: 20px;
+	border-left: 5px solid grey;
+	position: relative;
+	background-color: #fff;
+}
+.not-last::after {
+	content: "";
+	position: absolute;
+	width: 95%;
+	height: 1px;
+	bottom: 0;
+	text-align: center;
+	background-color: lightgrey;
+}
+.field-date {
+	margin-bottom: 5px;
+}
+.field-name {
+	margin-left: 3px;
+	font-size: 15px;
+	color: grey;
+}
+.transition {
+	height: 3%;
+	background-color: #fafafa;
+}
+.additional-info {
+	background-color: #fff;
+	box-shadow: 0 0 10px rgba(0,0,0,0.5);
+	flex-grow: 1;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: end;
+}
+.author-of-project {
+	margin-bottom: 20px;
+	font-size: 19px;
+	color: #717171;
+}
+h2 {
+	position: relative;
+	text-align: center;
+}
+h2::before {
+	content: "";
+	position: absolute;
+	top: -5px;
+	left: 30%;
+	width: 40%;
+	height: 2px;
+	background-color: lightgrey;
+	border-radius: 10px;
+}
+.edit-profile__button {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	border: none;
+	vertical-align: middle;
+	width: 30px;
+	height: 30px;
+	padding: 0;
+	margin-right: 5px;
+	margin-bottom: 5px;
+	background-color: #fff;
+}
+.edit-profile__button:active {
+	margin-bottom: 2px;
+	margin-right: 4px;
 }
 .closer {
+	z-index: 5;
 	width: 30px;
 	height: 30px;
 	background: #fff;
@@ -34,14 +114,11 @@ body{
 	cursor: pointer;
 }
 .avatar {
-	width: 100%;
+	z-index: 4;
 	height: 30%;
+	position: relative;
 	box-shadow: 0 0 10px rgba(0,0,0,0.5);
 } 
-.nick {
-	font-size: 25px;
-	margin-left: 20px;
-}
 .sidebar{
 	float: left;
 	max-width: 5.5%;
@@ -143,9 +220,13 @@ table, td, tr {
 .edit-hw__button:active {
 	border: 2px solid #fafafa;
 }
-.edit-hw__img {
+.edit-hw__img{
 	max-width: 40px;
 	max-height: 40px;
+}
+.edit-profile__img {
+	max-width: 20px;
+	max-height: 20px;
 }
 .class {
 	width: 25%;
@@ -465,9 +546,11 @@ a.l {
 .message-my {
 	text-align: right;
 	width: 50%;
+	line-height: 0px;
 }
 .message-op {
 	width: 50%;
+	line-height: 0px;
 }
 .time-breaker {
 	width: 0px;
@@ -490,6 +573,7 @@ a.l {
 	word-wrap: break-word;
 	font-size: 19px;
 	text-align: left;
+	line-height: normal;
 }
 .my {
 	background-color: #a8edbb;
