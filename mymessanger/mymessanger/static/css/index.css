@@ -127,19 +127,6 @@ h2::before {
 	height: 100%;
 	background-color: #bafff2;
 }
-.exit{
-	position: absolute;
-	bottom: .5%;
-	left: .5%;
-	background: url(../img/exit.png) center;
-	background-size: 50px 50px;
-	width: 50px;
-	height: 50px;
-}
-.exit:hover {
-	background: url(../img/exit1.png) center;
-	background-size: 50px 50px;
-}
 .main{
 	width: 90%;
 	max-width: 90%;
