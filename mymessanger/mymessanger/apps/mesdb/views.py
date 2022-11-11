@@ -4,6 +4,7 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.views.generic.edit import FormView
 import time
+import requests
 from .models import Message, User, Chat
 
 
@@ -44,9 +45,13 @@ def found_data(the_user):
             data_name = the_user_chats[i].chat_title
             data_avatar = the_user.user_avatar
         the_user_chats_messages = the_user_chats[i].message_set.all()
-        last_message_text = the_user_chats_messages[len(the_user_chats_messages) - 1].message_text
-        last_message_unread = len(the_user_chats_messages[len(the_user_chats_messages) - 1].unread.all())
-        last_message_time_timestamp = int(the_user_chats_messages[len(the_user_chats_messages) - 1].message_time)
+        last_message_text = ""
+        last_message_unread = 0
+        last_message_time_timestamp = time.time()
+        if len(the_user_chats_messages) - 1 > 0:
+            last_message_text = the_user_chats_messages[len(the_user_chats_messages) - 1].message_text
+            last_message_unread = len(the_user_chats_messages[len(the_user_chats_messages) - 1].unread.all())
+            last_message_time_timestamp = int(the_user_chats_messages[len(the_user_chats_messages) - 1].message_time)
         last_message_time_struct_time = time.localtime(last_message_time_timestamp)
         if time.strftime("%Y", last_message_time_struct_time) == time.strftime("%Y", time.localtime(time.time())):
             if time.strftime("%b", last_message_time_struct_time) == time.strftime("%b", time.localtime(time.time())):
@@ -223,8 +228,18 @@ def send_message(request):
     add_new_message.save()
     notify_users = to_chat.chat_users.exclude(id=the_user_id)
     add_new_message.unread.set(notify_users)
-    json = {'nothing': None}
-    return JsonResponse(json)
+
+    for i in to_chat.chat_users.all():
+        if i.is_it_bot:
+            response = requests.post('https://cubebattle.ru/supermess.php', data={
+                'text': new_message,
+                'author_id': the_user_id,
+                'chat_id': to_chat_id,
+                'amount_chat_members': len(to_chat.chat_users.all()),
+            })
+            print(response)
+
+    return JsonResponse({})
 
 
 def get_message(request):
@@ -283,6 +298,4 @@ def edit_hw(request):
 
     print(lessons)
 
-    json = {}
-
-    return JsonResponse(json)
+    return JsonResponse({})

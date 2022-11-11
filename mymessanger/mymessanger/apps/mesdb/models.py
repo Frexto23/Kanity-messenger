@@ -7,6 +7,7 @@ class User(models.Model):
     grade = models.IntegerField("Параллель", default=-1)
     class_letter = models.CharField("Буква класса", max_length=1, default="G")
     user_avatar = models.ImageField(default='../../static/img/def.jpg', upload_to='avatars/')
+    is_it_bot = models.BooleanField("Это BOT?", default=False)
 
     def __str__(self):
         return self.user_login

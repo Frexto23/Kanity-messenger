@@ -356,6 +356,43 @@ $(document).ready(function() {
     	$(".avatar").height(settingsSidebarWidth)
     })
 
+    $(".edit-profile__button").click(function(){
+    	if (JSON.parse($(this).attr("active"))) {
+    		if ($(".nick").val() == "" || $(".email").val() == ""){
+    			return
+    		}
+    		$(this).attr("active", "false")
+    		data = $(".field-data")
+    		$(".field-data").remove()
+    		var divNick = $("<div>", {
+    			'class': "field-data nick",
+    			text: $(data[0]).val() 
+    		})
+    		$($(".field")[0]).prepend(divNick)
+    		var divEmail = $("<div>", {
+    			'class': "field-data email",
+    			text: $(data[1]).val() 
+    		})
+    		$($(".field")[1]).prepend(divEmail)
+    	}
+    	else {
+    		$(this).attr("active", "true")
+    		data = $(".field-data")
+    		$(".field-data").remove()
+    		var inputNick = $("<input>", {
+    			'class': "field-data nick",
+    			val: $(data[0]).text(),
+    		})
+    		$($(".field")[0]).prepend(inputNick)
+    		var inputEmail = $("<input>", {
+    			'class': "field-data email",
+    			val: $(data[1]).text(),
+
+    		})
+    		$($(".field")[1]).prepend(inputEmail)
+    	}
+    })
+
     $(".settings-sidebar").on('click', ".closer", function(){
     	$(".settings-sidebar").css("display", "none")
     })
